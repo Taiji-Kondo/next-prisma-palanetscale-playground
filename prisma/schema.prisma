@@ -8,10 +8,105 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Star {
-  id              Int       @default(autoincrement()) @id
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  name            String    @db.VarChar(255)
-  constellation   String    @db.VarChar(255)
+model User {
+  userId     Int          @id @default(autoincrement()) @map("user_id")
+  name       String       @unique @map("name") @db.VarChar(20)
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @default(now()) @updatedAt @map("updated_at")
+  deletedAt  DateTime?
+  CoffeeBean CoffeeBean[]
+  DripRecord DripRecord[]
+
+  @@map("user")
+}
+
+model Roast {
+  roastId    Int          @id @default(autoincrement()) @map("roast_id")
+  name       String       @unique @map("name") @db.VarChar(5)
+  createdAt  DateTime     @default(now()) @map("created_at")
+  CoffeeBean CoffeeBean[]
+
+  @@map("roast")
+}
+
+model Process {
+  processId  Int          @id @default(autoincrement()) @map("process_id")
+  name       String       @unique @map("name") @db.VarChar(10)
+  createdAt  DateTime     @default(now()) @map("created_at")
+  CoffeeBean CoffeeBean[]
+
+  @@map("process")
+}
+
+model CoffeeBean {
+  coffeeBeanId   Int       @id @default(autoincrement()) @map("coffeeBean_id")
+  name           String    @map("name") @db.VarChar(30)
+  productionArea String    @map("production_area") @db.VarChar(30)
+  breed          String    @map("breed") @db.VarChar(30)
+  taste          Int?      @map("taste") @db.UnsignedTinyInt
+  memo           String    @map("memo") @db.VarChar(191)
+  purchasDate    DateTime? @map("purchase_date")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt      DateTime?
+
+  userId     Int          @map("user_id")
+  user       User         @relation(fields: [userId], references: [userId])
+  roastId    Int?         @map("roast_id")
+  roast      Roast?       @relation(fields: [roastId], references: [roastId])
+  processId  Int?         @map("process_id")
+  process    Process?     @relation(fields: [processId], references: [processId])
+  DripRecord DripRecord[]
+
+  @@map("coffee_bean")
+}
+
+model TasteGraph {
+  tasteGraphId Int          @id @default(autoincrement()) @map("taste_graph_id")
+  sweet        Int          @unique @map("sweet") @db.UnsignedTinyInt
+  bitter       Int          @unique @map("bitter") @db.UnsignedTinyInt
+  acidity      Int          @unique @map("acidity") @db.UnsignedTinyInt
+  rich         Int          @unique @map("rich") @db.UnsignedTinyInt
+  aroma        Int          @unique @map("aroma") @db.UnsignedTinyInt
+  createdAt    DateTime     @default(now()) @map("created_at")
+  DripRecord   DripRecord[]
+
+  @@map("taste_graph")
+}
+
+model GrindSize {
+  grindSizeId Int          @id @default(autoincrement()) @map("grind_size_id")
+  name        String       @unique @map("name") @db.VarChar(10)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  DripRecord  DripRecord[]
+
+  @@map("grind_size")
+}
+
+model DripRecord {
+  dripRecordId     Int       @id @default(autoincrement()) @map("drip_record_id")
+  beanGram         Int?      @map("bean_gram") @db.UnsignedSmallInt
+  equipment        String?   @map("equipment") @db.VarChar(30)
+  waterTemperature Int?      @map("water_temperature") @db.UnsignedTinyInt
+  initialWaterGram Int?      @map("initial_water_gram") @db.UnsignedSmallInt
+  initialWaterTime Int?      @map("initial_water_time") @db.UnsignedTinyInt
+  totalDripTime    Int?      @map("tital_drip_time") @db.UnsignedSmallInt
+  waterGram        Int?      @map("water_gram") @db.UnsignedSmallInt
+  taste            Int       @map("taste") @db.UnsignedTinyInt
+  memo             String?   @map("memo") @db.VarChar(191)
+  dripDate         DateTime? @map("drip_date")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt        DateTime?
+
+  userId       Int         @map("user_id")
+  user         User        @relation(fields: [userId], references: [userId])
+  coffeeBeanId Int?        @map("coffee_bean_id")
+  coffeeBean   CoffeeBean? @relation(fields: [coffeeBeanId], references: [coffeeBeanId])
+  grindSizeId  Int?        @map("grind_size_id")
+  grindSize    GrindSize?  @relation(fields: [grindSizeId], references: [grindSizeId])
+  tasteGraphId Int?        @map("test_graph_id")
+  tasteGraph   TasteGraph? @relation(fields: [tasteGraphId], references: [tasteGraphId])
+
+  @@map("drip_record")
 }
