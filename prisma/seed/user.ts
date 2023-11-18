@@ -13,11 +13,11 @@ export const user = async () => {
     },
     {
       createdAt: now,
-      name: 'Taiji Kondo',
+      name: 'User1',
     },
     {
       createdAt: now,
-      name: 'Ayaka Uchida',
+      name: 'User2',
     },
   ]
 
