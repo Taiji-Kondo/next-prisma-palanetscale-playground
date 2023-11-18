@@ -1,5 +1,5 @@
-import { prisma, Prisma } from "../../src/libs/prisma/prismaClient";
-import {GRIND_SIZE} from "../../src/constants/grindSize";
+import { prisma, Prisma } from "@/libs/prisma/prismaClient";
+import {GRIND_SIZE} from "@/constants/grindSize";
 
 export const grindSize = async () => {
   console.log('grindSize')

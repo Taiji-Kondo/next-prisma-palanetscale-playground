@@ -1,5 +1,5 @@
-import { prisma, Prisma } from "../../src/libs/prisma/prismaClient";
-import {PROCESS} from "../../src/constants/process";
+import { prisma, Prisma } from "@/libs/prisma/prismaClient";
+import {PROCESS} from "@/constants/process";
 
 export const process = async () => {
   console.log('process')

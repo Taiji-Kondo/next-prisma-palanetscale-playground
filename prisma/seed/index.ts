@@ -1,4 +1,4 @@
-import { prisma } from "../../src/libs/prisma/prismaClient";
+import { prisma } from "@/libs/prisma/prismaClient";
 import { grindSize } from './grindSize'
 import { process } from './process'
 import { roast } from './roast'
