@@ -1,0 +1,17 @@
+import { prisma, Prisma } from "../../src/libs/prisma/prismaClient";
+import {ROAST} from "../../src/constants/roast";
+
+export const roast = async () => {
+  console.log('roast')
+
+  const now = new Date()
+  const SEED_DATA: Prisma.RoastCreateInput[] = ROAST.map((roast) => ({
+    createdAt: now,
+    name: roast,
+  }))
+
+  await prisma.roast.deleteMany()
+  await prisma.roast.createMany({
+    data: SEED_DATA,
+  })
+}
