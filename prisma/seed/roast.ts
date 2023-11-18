@@ -1,5 +1,5 @@
 import { prisma, Prisma } from "@/libs/prisma/prismaClient";
-import {ROAST} from "@/constants/roast";
+import {ROAST} from "@/constants/masters/roast";
 
 export const roast = async () => {
   console.log('roast')
