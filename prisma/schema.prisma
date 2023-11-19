@@ -41,10 +41,10 @@ model Process {
 model CoffeeBean {
   coffeeBeanId   Int       @id @default(autoincrement()) @map("coffeeBean_id")
   name           String    @map("name") @db.VarChar(30)
-  productionArea String    @map("production_area") @db.VarChar(30) // TODO: rename origin
-  breed          String    @map("breed") @db.VarChar(30) // TODO: rename variety
+  productionArea String    @map("production_area") @db.VarChar(30) // TODO: rename origin and optional
+  breed          String    @map("breed") @db.VarChar(30) // TODO: rename variety and optional
   taste          Int?      @map("taste") @db.UnsignedTinyInt // TODO: rename rating
-  memo           String    @map("memo") @db.VarChar(191) // TODO: rename note
+  memo           String    @map("memo") @db.VarChar(191) // TODO: rename note and optional
   purchasDate    DateTime? @map("purchase_date") // TODO: typo purchase
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at")
