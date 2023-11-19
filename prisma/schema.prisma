@@ -41,11 +41,11 @@ model Process {
 model CoffeeBean {
   coffeeBeanId   Int       @id @default(autoincrement()) @map("coffeeBean_id")
   name           String    @map("name") @db.VarChar(30)
-  productionArea String    @map("production_area") @db.VarChar(30)
-  breed          String    @map("breed") @db.VarChar(30)
-  taste          Int?      @map("taste") @db.UnsignedTinyInt
-  memo           String    @map("memo") @db.VarChar(191)
-  purchasDate    DateTime? @map("purchase_date")
+  productionArea String    @map("production_area") @db.VarChar(30) // TODO: rename origin
+  breed          String    @map("breed") @db.VarChar(30) // TODO: rename variety
+  taste          Int?      @map("taste") @db.UnsignedTinyInt // TODO: rename rating
+  memo           String    @map("memo") @db.VarChar(191) // TODO: rename note
+  purchasDate    DateTime? @map("purchase_date") // TODO: typo purchase
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at")
   deletedAt      DateTime?
@@ -92,7 +92,7 @@ model DripRecord {
   initialWaterTime Int?      @map("initial_water_time") @db.UnsignedTinyInt
   totalDripTime    Int?      @map("tital_drip_time") @db.UnsignedSmallInt
   waterGram        Int?      @map("water_gram") @db.UnsignedSmallInt
-  taste            Int       @map("taste") @db.UnsignedTinyInt
+  taste            Int       @map("taste") @db.UnsignedTinyInt // TODO: rename rating
   memo             String?   @map("memo") @db.VarChar(191)
   dripDate         DateTime? @map("drip_date")
   createdAt        DateTime  @default(now()) @map("created_at")
