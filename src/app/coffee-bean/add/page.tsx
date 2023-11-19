@@ -57,8 +57,6 @@ export default function CoffeeBeanAddPage() {
     }
   )
 
-  console.log(form)
-
   return (
     <main className={'px-4'}>
       <h1 className={'text-xl font-bold'}>Add Coffee Bean</h1>
@@ -67,28 +65,28 @@ export default function CoffeeBeanAddPage() {
         <form>
           <div>
             <label htmlFor="name">名前: </label>
-            <input type="text" id="name" name="name" value={form.name} onChange={(event) => {
+            <input className={'text-black'} type="text" id="name" name="name" value={form.name} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'name', value})
             }} />
           </div>
           <div>
             <label htmlFor="origin">原産国: </label>
-            <input type="text" id="origin" name="origin" value={form.origin} onChange={(event) => {
+            <input className={'text-black'} type="text" id="origin" name="origin" value={form.origin} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'origin', value})
             }} />
           </div>
           <div>
             <label htmlFor="variety">品種: </label>
-            <input type="text" id="variety" name="variety" value={form.variety} onChange={(event) => {
+            <input className={'text-black'} type="text" id="variety" name="variety" value={form.variety} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'variety', value})
             }} />
           </div>
           <div>
             <label htmlFor="process">精製方法: </label>
-            <select id={'process'} name={'process'} value={form.process} onChange={(event) => {
+            <select className={'text-black'} id={'process'} name={'process'} value={form.process} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'process', value: Number(value)})
             }}>
@@ -99,7 +97,7 @@ export default function CoffeeBeanAddPage() {
           </div>
           <div>
             <label htmlFor="roast">焙煎度: </label>
-            <select id={'roast'} name={'roast'} value={form.roast} onChange={(event) => {
+            <select className={'text-black'} id={'roast'} name={'roast'} value={form.roast} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'roast', value: Number(value)})
             }}>
@@ -110,7 +108,7 @@ export default function CoffeeBeanAddPage() {
           </div>
           <div>
             <label htmlFor="rating">評価: </label>
-            <select name="rating" id="rating" value={form.rating} onChange={(event) => {
+            <select className={'text-black'} name="rating" id="rating" value={form.rating} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'rating', value: Number(value)})
             }}>
@@ -123,14 +121,14 @@ export default function CoffeeBeanAddPage() {
           </div>
           <div>
             <label htmlFor="note">メモ: </label>
-            <textarea id="note" name="note" value={form.note} onChange={(event) => {
+            <textarea className={'text-black'} id="note" name="note" value={form.note} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'note', value})
             }} />
           </div>
           <div>
             <label htmlFor="purchaseDate">購入日: </label>
-            <input type="date" id="purchaseDate" name="purchaseDate" value={form.purchaseDate} onChange={(event) => {
+            <input className={'text-black'} type="date" id="purchaseDate" name="purchaseDate" value={form.purchaseDate} onChange={(event) => {
               const value = event.currentTarget.value
               setForm({key: 'purchaseDate', value})
             }} />
