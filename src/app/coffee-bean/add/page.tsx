@@ -1,7 +1,8 @@
 'use client'
 
-import { prisma, Process, Roast } from "@/libs/prisma/prismaClient";
+import { Process, Roast } from "@/libs/prisma/prismaClient";
 import {useEffect, useReducer, useState} from "react";
+import {CreateCoffeeBeanRequestType} from "@/app/api/coffee-bean/route";
 
 type CoffeeBeanAddFromType = {
   name: string
@@ -56,6 +57,34 @@ export default function CoffeeBeanAddPage() {
       purchaseDate: undefined,
     }
   )
+
+  const handleSubmit = async () => {
+    try {
+      const requestBody = {
+        userId,
+        name: form.name,
+        productionArea: form.origin,
+        breed: form.variety,
+        processId: form.process,
+        roastId: form.roast,
+        taste: form.rating,
+        memo: form.note,
+        purchasDate: form.purchaseDate,
+      } satisfies CreateCoffeeBeanRequestType
+
+      const response = await fetch('/api/coffee-bean', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      })
+      const { body } = await response.json()
+      console.log(body)
+    } catch (error) {
+      console.error(`Failed to add coffee bean: ${error}`)
+    }
+  }
 
   return (
     <main className={'px-4'}>
@@ -133,7 +162,7 @@ export default function CoffeeBeanAddPage() {
               setForm({key: 'purchaseDate', value})
             }} />
           </div>
-          <button type="button">送信</button>
+          <button type="button" onClick={handleSubmit}>送信</button>
         </form>
       </section>
     </main>
