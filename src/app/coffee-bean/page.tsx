@@ -27,17 +27,17 @@ export default async function CoffeeBeanPage() {
             </tr>
           </thead>
           <tbody>
-            {beans.map(({coffeeBeanId, productionArea, name, breed, taste, memo, purchasDate, createdAt, roast, process}) => (
+            {beans.map(({coffeeBeanId, origin, name, variety, rating, note, purchaseDate, createdAt, roast, process}) => (
               <tr key={coffeeBeanId}>
                 <td>{coffeeBeanId}</td>
                 <td>{name}</td>
-                <td>{productionArea}</td>
-                <td>{breed}</td>
+                <td>{origin}</td>
+                <td>{variety}</td>
                 <td>{process?.name ?? '-'}</td>
                 <td>{roast?.name ?? '-'}</td>
-                <td>{taste}</td>
-                <td>{memo}</td>
-                <td>{purchasDate?.toDateString() ?? '-'}</td>
+                <td>{rating}</td>
+                <td>{note}</td>
+                <td>{purchaseDate?.toDateString() ?? '-'}</td>
                 <td>{createdAt?.toDateString() ?? '-'}</td>
               </tr>
             ))}

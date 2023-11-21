@@ -5,11 +5,11 @@ export const dynamic = 'force-dynamic'
 
 export type CreateCoffeeBeanRequestType = {
   name: string
-  productionArea?: string
-  breed?: string
-  taste?: number
-  memo?: string
-  purchasDate?: string
+  origin?: string
+  variety?: string
+  rating?: number
+  note?: string
+  purchaseDate?: string
   userId: number
   roastId?: number
   processId?: number
@@ -21,11 +21,11 @@ export async function POST(request: NextRequest) {
     const response = await prisma.coffeeBean.create({data: {
       userId: data.userId,
       name: data.name,
-      productionArea: data.productionArea,
-      breed: data.breed,
-      taste: data.taste,
-      memo: data.memo,
-      purchasDate: data.purchasDate ? new Date(data.purchasDate) : undefined,
+      origin: data.origin,
+      variety: data.variety,
+      rating: data.rating,
+      note: data.note,
+      purchaseDate: data.purchaseDate ? new Date(data.purchaseDate) : undefined,
       roastId: data.roastId,
       processId: data.processId,
     }})

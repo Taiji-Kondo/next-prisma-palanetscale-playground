@@ -1,6 +1,6 @@
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -39,16 +39,16 @@ model Process {
 }
 
 model CoffeeBean {
-  coffeeBeanId   Int       @id @default(autoincrement()) @map("coffeeBean_id")
-  name           String    @map("name") @db.VarChar(30)
-  productionArea String    @map("production_area") @db.VarChar(30) // TODO: rename origin and optional
-  breed          String    @map("breed") @db.VarChar(30) // TODO: rename variety and optional
-  taste          Int?      @map("taste") @db.UnsignedTinyInt // TODO: rename rating
-  memo           String    @map("memo") @db.VarChar(191) // TODO: rename note and optional
-  purchasDate    DateTime? @map("purchase_date") // TODO: typo purchase
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @default(now()) @updatedAt @map("updated_at")
-  deletedAt      DateTime?
+  coffeeBeanId Int       @id @default(autoincrement()) @map("coffeeBean_id")
+  name         String    @map("name") @db.VarChar(30)
+  origin       String?   @map("origin") @db.VarChar(30)
+  variety      String?   @map("variety") @db.VarChar(30)
+  rating       Int?      @map("rating") @db.UnsignedTinyInt
+  note         String?   @map("note") @db.VarChar(191)
+  purchaseDate DateTime? @map("purchase_date")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt    DateTime?
 
   userId     Int          @map("user_id")
   user       User         @relation(fields: [userId], references: [userId])
@@ -92,7 +92,7 @@ model DripRecord {
   initialWaterTime Int?      @map("initial_water_time") @db.UnsignedTinyInt
   totalDripTime    Int?      @map("tital_drip_time") @db.UnsignedSmallInt
   waterGram        Int?      @map("water_gram") @db.UnsignedSmallInt
-  taste            Int       @map("taste") @db.UnsignedTinyInt // TODO: rename rating
+  rating           Int?      @map("rating") @db.UnsignedTinyInt
   memo             String?   @map("memo") @db.VarChar(191)
   dripDate         DateTime? @map("drip_date")
   createdAt        DateTime  @default(now()) @map("created_at")

@@ -63,13 +63,13 @@ export default function CoffeeBeanAddPage() {
       const requestBody = {
         userId,
         name: form.name,
-        productionArea: form.origin,
-        breed: form.variety,
+        origin: form.origin,
+        variety: form.variety,
         processId: form.process,
         roastId: form.roast,
-        taste: form.rating,
-        memo: form.note,
-        purchasDate: form.purchaseDate,
+        rating: form.rating,
+        note: form.note,
+        purchaseDate: form.purchaseDate,
       } satisfies CreateCoffeeBeanRequestType
 
       const response = await fetch('/api/coffee-bean', {
