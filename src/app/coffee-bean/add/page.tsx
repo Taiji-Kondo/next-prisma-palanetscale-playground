@@ -165,6 +165,8 @@ export default function CoffeeBeanAddPage() {
           <button type="button" onClick={handleSubmit}>送信</button>
         </form>
       </section>
+
+      <a href={'/coffee-bean'}>◀ BACK</a>
     </main>
   )
 }
