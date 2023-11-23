@@ -44,9 +44,9 @@ export default async function CoffeeBeanPage() {
             )}
           </tbody>
         </table>
-
-        <Link href={'/coffee-bean/add'}>ADD</Link>
       </section>
+
+      <Link href={'/coffee-bean/add'}>ADD</Link>
     </main>
   );
 }

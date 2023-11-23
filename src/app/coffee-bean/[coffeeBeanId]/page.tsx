@@ -49,14 +49,14 @@ export default async function CoffeeBeanDetailPage({ params: { coffeeBeanId } }:
             )}
           </tbody>
         </table>
-
-        <Link className={'block'} href={'/coffee-bean/edit'}>
-          ▶ EDIT
-        </Link>
-        <Link className={'block'} href={'/coffee-bean'}>
-          ◀ BACK
-        </Link>
       </section>
+
+      <Link className={'block'} href={`/coffee-bean/${coffeeBeanId}/edit`}>
+        ▶ EDIT
+      </Link>
+      <Link className={'block'} href={'/coffee-bean'}>
+        ◀ BACK
+      </Link>
     </main>
   );
 }

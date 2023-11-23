@@ -3,6 +3,34 @@ import { NextRequest } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const userId = searchParams.get('userId');
+    const coffeeBeanId = searchParams.get('coffeeBeanId');
+    if (!userId || !coffeeBeanId) throw new Error('userId or coffeeBeanId is not found');
+
+    const coffeeBean = await prisma.coffeeBean.findUnique({
+      where: { userId: parseInt(userId), coffeeBeanId: parseInt(coffeeBeanId) },
+      include: { roast: true, process: true },
+    });
+
+    return Response.json({
+      status: 200,
+      body: {
+        coffeeBean,
+      },
+    });
+  } catch (error) {
+    return Response.json({
+      status: 500,
+      body: {
+        error,
+      },
+    });
+  }
+}
+
 export type CreateCoffeeBeanRequestType = {
   name: string;
   origin?: string;
@@ -32,7 +60,7 @@ export async function POST(request: NextRequest) {
       },
     });
     return Response.json({
-      status: 200,
+      status: 201,
       body: {
         response,
       },
