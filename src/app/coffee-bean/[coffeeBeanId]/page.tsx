@@ -8,7 +8,7 @@ export default async function CoffeeBeanDetailPage({ params: { coffeeBeanId } }:
 
   const beans = await prisma.coffeeBean.findMany({
     include: { process: true, roast: true },
-    where: { coffeeBeanId: parseInt(coffeeBeanId), userId },
+    where: { coffeeBeanId: Number(coffeeBeanId), userId },
   });
 
   return (

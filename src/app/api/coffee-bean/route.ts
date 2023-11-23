@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
     const coffeeBean = await prisma.coffeeBean.findUnique({
       include: { process: true, roast: true },
-      where: { coffeeBeanId: parseInt(coffeeBeanId), userId: parseInt(userId) },
+      where: { coffeeBeanId: Number(coffeeBeanId), userId: Number(userId) },
     });
 
     return Response.json({
