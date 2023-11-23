@@ -3,6 +3,7 @@
 import { Process, Roast } from "@/libs/prisma/prismaClient";
 import {useEffect, useReducer, useState} from "react";
 import {CreateCoffeeBeanRequestType} from "@/app/api/coffee-bean/route";
+import Link from "next/link";
 
 type CoffeeBeanAddFromType = {
   name: string
@@ -166,7 +167,7 @@ export default function CoffeeBeanAddPage() {
         </form>
       </section>
 
-      <a href={'/coffee-bean'}>◀ BACK</a>
+      <Link href={'/coffee-bean'}>◀ BACK</Link>
     </main>
   )
 }

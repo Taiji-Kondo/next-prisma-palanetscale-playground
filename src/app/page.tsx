@@ -1,11 +1,13 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main>
       <div>
-        <a href={'/master'} className={'underline'}>▶ Master Data Page</a>
+        <Link href={'/master'} className={'underline'}>▶ Master Data Page</Link>
       </div>
       <div>
-        <a href={'/coffee-bean'} className={'underline'}>▶ Coffee Bean Page</a>
+        <Link href={'/coffee-bean'} className={'underline'}>▶ Coffee Bean Page</Link>
       </div>
     </main>
   )
