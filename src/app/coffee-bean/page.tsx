@@ -1,11 +1,11 @@
-import {prisma} from "@/libs/prisma/prismaClient";
-import Link from "next/link";
+import { prisma } from '@/libs/prisma/prismaClient';
+import Link from 'next/link';
 
 export default async function CoffeeBeanPage() {
   // TODO: get auth user
-  const userId = 2
+  const userId = 2;
 
-  const beans = await prisma.coffeeBean.findMany({where: {userId}, include: {roast: true, process: true}})
+  const beans = await prisma.coffeeBean.findMany({ where: { userId }, include: { roast: true, process: true } });
 
   return (
     <main className={'px-4'}>
@@ -22,35 +22,31 @@ export default async function CoffeeBeanPage() {
               <th>精製方法</th>
               <th>焙煎度</th>
               <th>評価</th>
-              <th>メモ</th>
-              <th>購入日</th>
-              <th>作成日</th>
             </tr>
           </thead>
           <tbody>
-            {beans.map(({coffeeBeanId, origin, name, variety, rating, note, purchaseDate, createdAt, roast, process}) => (
-              <tr key={coffeeBeanId}>
-                <td>{coffeeBeanId}</td>
-                <td>
-                  <Link className={'underline text-blue-500'} href={`/coffee-bean/${coffeeBeanId}`}>
-                    {name}
-                  </Link>
-                </td>
-                <td>{origin}</td>
-                <td>{variety}</td>
-                <td>{process?.name ?? '-'}</td>
-                <td>{roast?.name ?? '-'}</td>
-                <td>{rating}</td>
-                <td>{note}</td>
-                <td>{purchaseDate?.toDateString() ?? '-'}</td>
-                <td>{createdAt?.toDateString() ?? '-'}</td>
-              </tr>
-            ))}
+            {beans.map(
+              ({ coffeeBeanId, origin, name, variety, rating, note, purchaseDate, createdAt, roast, process }) => (
+                <tr key={coffeeBeanId}>
+                  <td>{coffeeBeanId}</td>
+                  <td>
+                    <Link className={'underline text-blue-500'} href={`/coffee-bean/${coffeeBeanId}`}>
+                      {name}
+                    </Link>
+                  </td>
+                  <td>{origin}</td>
+                  <td>{variety}</td>
+                  <td>{process?.name ?? '-'}</td>
+                  <td>{roast?.name ?? '-'}</td>
+                  <td>{rating}</td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
 
         <Link href={'/coffee-bean/add'}>ADD</Link>
       </section>
     </main>
-  )
+  );
 }

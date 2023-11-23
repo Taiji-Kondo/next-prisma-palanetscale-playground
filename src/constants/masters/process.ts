@@ -5,4 +5,4 @@ export const PROCESS = [
   'ハニープロセス',
   'スマトラ式',
   'アナエロビック',
-] as const
+] as const;

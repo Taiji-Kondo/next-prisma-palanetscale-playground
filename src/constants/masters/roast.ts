@@ -7,4 +7,4 @@ export const ROAST = [
   'フルシティ',
   'フレンチ',
   'イタリアン',
-] as const
+] as const;
