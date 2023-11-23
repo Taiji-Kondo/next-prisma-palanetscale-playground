@@ -14,7 +14,7 @@ export default async function StarPage() {
         <h2 className={'text-lg font-bold'}>User</h2>
         <div className={'px-5 py-3 bg-gray-600 rounded-md'}>
           <ul>
-            {users.map(({ userId, name }) => (
+            {users.map(({ name, userId }) => (
               <li key={userId}>
                 <span>{userId}:</span>
                 <span>{name}</span>
@@ -42,7 +42,7 @@ export default async function StarPage() {
         <h2 className={'text-lg font-bold'}>Process</h2>
         <div className={'px-5 py-3 bg-gray-600 rounded-md'}>
           <ul>
-            {processes.map(({ processId, name }) => (
+            {processes.map(({ name, processId }) => (
               <li key={processId}>
                 <span>{processId}:</span>
                 <span>{name}</span>
@@ -56,7 +56,7 @@ export default async function StarPage() {
         <h2 className={'text-lg font-bold'}>Roast</h2>
         <div className={'px-5 py-3 bg-gray-600 rounded-md'}>
           <ul>
-            {roasts.map(({ roastId, name }) => (
+            {roasts.map(({ name, roastId }) => (
               <li key={roastId}>
                 <span>{roastId}:</span>
                 <span>{name}</span>

@@ -1,19 +1,20 @@
 'use client';
 
-import { Process, Roast } from '@/libs/prisma/prismaClient';
-import { useEffect, useReducer, useState } from 'react';
-import { CreateCoffeeBeanRequestType } from '@/app/api/coffee-bean/route';
 import Link from 'next/link';
+import { useEffect, useReducer, useState } from 'react';
+
+import { CreateCoffeeBeanRequestType } from '@/app/api/coffee-bean/route';
+import { Process, Roast } from '@/libs/prisma/prismaClient';
 
 type CoffeeBeanAddFromType = {
   name: string;
-  origin?: string;
-  variety?: string;
-  process?: number;
-  roast?: number;
-  rating?: number;
   note?: string;
+  origin?: string;
+  process?: number;
   purchaseDate?: string;
+  rating?: number;
+  roast?: number;
+  variety?: string;
 };
 
 export default function CoffeeBeanAddPage() {
@@ -47,35 +48,35 @@ export default function CoffeeBeanAddPage() {
 
   const [form, setForm] = useReducer(reducer, {
     name: '',
-    origin: undefined,
-    variety: undefined,
-    process: undefined,
-    roast: undefined,
-    rating: undefined,
     note: undefined,
+    origin: undefined,
+    process: undefined,
     purchaseDate: undefined,
+    rating: undefined,
+    roast: undefined,
+    variety: undefined,
   });
 
   const handleSubmit = async () => {
     try {
       const requestBody = {
-        userId,
         name: form.name,
-        origin: form.origin,
-        variety: form.variety,
-        processId: form.process,
-        roastId: form.roast,
-        rating: form.rating,
         note: form.note,
+        origin: form.origin,
+        processId: form.process,
         purchaseDate: form.purchaseDate,
+        rating: form.rating,
+        roastId: form.roast,
+        userId,
+        variety: form.variety,
       } satisfies CreateCoffeeBeanRequestType;
 
       const response = await fetch('/api/coffee-bean', {
-        method: 'POST',
+        body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(requestBody),
+        method: 'POST',
       });
       const { body } = await response.json();
       console.log(body);
@@ -144,7 +145,7 @@ export default function CoffeeBeanAddPage() {
                 setForm({ key: 'process', value: Number(value) });
               }}
             >
-              {processes.map(({ processId, name }) => (
+              {processes.map(({ name, processId }) => (
                 <option key={processId} value={processId}>
                   {name}
                 </option>
@@ -163,7 +164,7 @@ export default function CoffeeBeanAddPage() {
                 setForm({ key: 'roast', value: Number(value) });
               }}
             >
-              {roasts.map(({ roastId, name }) => (
+              {roasts.map(({ name, roastId }) => (
                 <option key={roastId} value={roastId}>
                   {name}
                 </option>

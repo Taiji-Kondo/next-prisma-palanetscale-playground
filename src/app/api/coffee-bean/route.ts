@@ -1,5 +1,6 @@
-import { prisma } from '@/libs/prisma/prismaClient';
 import { NextRequest } from 'next/server';
+
+import { prisma } from '@/libs/prisma/prismaClient';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,36 +12,36 @@ export async function GET(request: NextRequest) {
     if (!userId || !coffeeBeanId) throw new Error('userId or coffeeBeanId is not found');
 
     const coffeeBean = await prisma.coffeeBean.findUnique({
-      where: { userId: parseInt(userId), coffeeBeanId: parseInt(coffeeBeanId) },
-      include: { roast: true, process: true },
+      include: { process: true, roast: true },
+      where: { coffeeBeanId: parseInt(coffeeBeanId), userId: parseInt(userId) },
     });
 
     return Response.json({
-      status: 200,
       body: {
         coffeeBean,
       },
+      status: 200,
     });
   } catch (error) {
     return Response.json({
-      status: 500,
       body: {
         error,
       },
+      status: 500,
     });
   }
 }
 
 export type CreateCoffeeBeanRequestType = {
   name: string;
-  origin?: string;
-  variety?: string;
-  rating?: number;
   note?: string;
-  purchaseDate?: string;
-  userId: number;
-  roastId?: number;
+  origin?: string;
   processId?: number;
+  purchaseDate?: string;
+  rating?: number;
+  roastId?: number;
+  userId: number;
+  variety?: string;
 };
 
 export async function POST(request: NextRequest) {
@@ -48,29 +49,29 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     const response = await prisma.coffeeBean.create({
       data: {
-        userId: data.userId,
         name: data.name,
-        origin: data.origin,
-        variety: data.variety,
-        rating: data.rating,
         note: data.note,
-        purchaseDate: data.purchaseDate ? new Date(data.purchaseDate) : undefined,
-        roastId: data.roastId,
+        origin: data.origin,
         processId: data.processId,
+        purchaseDate: data.purchaseDate ? new Date(data.purchaseDate) : undefined,
+        rating: data.rating,
+        roastId: data.roastId,
+        userId: data.userId,
+        variety: data.variety,
       },
     });
     return Response.json({
-      status: 201,
       body: {
         response,
       },
+      status: 201,
     });
   } catch (error) {
     return Response.json({
-      status: 500,
       body: {
         error,
       },
+      status: 500,
     });
   }
 }

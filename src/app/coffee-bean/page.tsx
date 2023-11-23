@@ -1,11 +1,12 @@
-import { prisma } from '@/libs/prisma/prismaClient';
 import Link from 'next/link';
+
+import { prisma } from '@/libs/prisma/prismaClient';
 
 export default async function CoffeeBeanPage() {
   // TODO: get auth user
   const userId = 2;
 
-  const beans = await prisma.coffeeBean.findMany({ where: { userId }, include: { roast: true, process: true } });
+  const beans = await prisma.coffeeBean.findMany({ include: { process: true, roast: true }, where: { userId } });
 
   return (
     <main className={'px-4'}>
@@ -26,7 +27,7 @@ export default async function CoffeeBeanPage() {
           </thead>
           <tbody>
             {beans.map(
-              ({ coffeeBeanId, origin, name, variety, rating, note, purchaseDate, createdAt, roast, process }) => (
+              ({ coffeeBeanId, createdAt, name, note, origin, process, purchaseDate, rating, roast, variety }) => (
                 <tr key={coffeeBeanId}>
                   <td>{coffeeBeanId}</td>
                   <td>
