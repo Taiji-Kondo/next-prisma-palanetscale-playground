@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import Link from 'next/link';
 
 import { prisma } from '@/libs/prisma/prismaClient';
@@ -43,8 +44,8 @@ export default async function CoffeeBeanDetailPage({ params: { coffeeBeanId } }:
                   <td>{roast?.name ?? '-'}</td>
                   <td>{rating}</td>
                   <td>{note}</td>
-                  <td>{purchaseDate?.toDateString() ?? '-'}</td>
-                  <td>{createdAt?.toDateString() ?? '-'}</td>
+                  <td>{purchaseDate ? format(purchaseDate, 'yyyy-MM-dd') : '-'}</td>
+                  <td>{createdAt ? format(createdAt, 'yyyy-MM-dd') : '-'}</td>
                 </tr>
               )
             )}
