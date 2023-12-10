@@ -76,6 +76,54 @@ export async function POST(request: NextRequest) {
   }
 }
 
+export type PutCoffeeBeanRequestType = {
+  coffeeBeanId: number;
+  name: string;
+  note?: string;
+  origin?: string;
+  processId?: number;
+  purchaseDate?: string;
+  rating?: number;
+  roastId?: number;
+  userId: number;
+  variety?: string;
+};
+
+export async function PUT(request: NextRequest) {
+  try {
+    const data = (await request.json()) as PutCoffeeBeanRequestType;
+    const response = await prisma.coffeeBean.update({
+      data: {
+        name: data.name,
+        note: data.note,
+        origin: data.origin,
+        processId: data.processId,
+        purchaseDate: data.purchaseDate ? new Date(data.purchaseDate) : undefined,
+        rating: data.rating,
+        roastId: data.roastId,
+        userId: data.userId,
+        variety: data.variety,
+      },
+      where: {
+        coffeeBeanId: data.coffeeBeanId,
+      },
+    });
+    return Response.json({
+      body: {
+        response,
+      },
+      status: 201,
+    });
+  } catch (error) {
+    return Response.json({
+      body: {
+        error,
+      },
+      status: 500,
+    });
+  }
+}
+
 export type DeleteCoffeeBeanRequestType = {
   coffeeBeanId: number;
 };

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { CreateCoffeeBeanRequestType, DeleteCoffeeBeanRequestType } from '@/app/api/coffee-bean/route';
+import { DeleteCoffeeBeanRequestType, PutCoffeeBeanRequestType } from '@/app/api/coffee-bean/route';
 import { Process, Roast } from '@/libs/prisma/prismaClient';
 
 type CoffeeBeanEditFromType = {
@@ -51,7 +51,11 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
         const coffeeBeanResponse = await fetch(`/api/coffee-bean?userId=${userId}&coffeeBeanId=${coffeeBeanId}`);
         const { body: coffeeBeanBody } = await coffeeBeanResponse.json();
         if (!coffeeBeanBody) return;
-        setForm(coffeeBeanBody.coffeeBean);
+        setForm({
+          ...coffeeBeanBody.coffeeBean,
+          process: coffeeBeanBody.coffeeBean.process.processId,
+          roast: coffeeBeanBody.coffeeBean.roast.roastId,
+        });
 
         const processesResponse = await fetch('/api/processes');
         const roastsResponse = await fetch('/api/roasts');
@@ -70,6 +74,7 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
   const handleSubmit = async () => {
     try {
       const requestBody = {
+        coffeeBeanId: Number(coffeeBeanId),
         name: form.name,
         note: form.note,
         origin: form.origin,
@@ -79,19 +84,19 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
         roastId: form.roast,
         userId,
         variety: form.variety,
-      } satisfies CreateCoffeeBeanRequestType;
+      } satisfies PutCoffeeBeanRequestType;
 
       const response = await fetch('/api/coffee-bean', {
         body: JSON.stringify(requestBody),
         headers: {
           'Content-Type': 'application/json',
         },
-        method: 'POST',
+        method: 'PUT',
       });
       const { body } = await response.json();
       console.log(body);
     } catch (error) {
-      console.error(`Failed to add coffee bean: ${error}`);
+      console.error(`Failed to update coffee bean: ${error}`);
     }
   };
 
@@ -116,7 +121,7 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
       console.log(body);
       router.replace('/coffee-bean');
     } catch (error) {
-      console.error(`Failed to add coffee bean: ${error}`);
+      console.error(`Failed to delete coffee bean: ${error}`);
     }
   };
 
