@@ -2,9 +2,10 @@
 
 import { format } from 'date-fns';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { CreateCoffeeBeanRequestType } from '@/app/api/coffee-bean/route';
+import { CreateCoffeeBeanRequestType, DeleteCoffeeBeanRequestType } from '@/app/api/coffee-bean/route';
 import { Process, Roast } from '@/libs/prisma/prismaClient';
 
 type CoffeeBeanEditFromType = {
@@ -21,6 +22,8 @@ type CoffeeBeanEditFromType = {
 export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { params: { coffeeBeanId: string } }) {
   // TODO: get auth user
   const userId = 2;
+
+  const router = useRouter();
 
   const [isSetup, setIsSetup] = useState(false);
   const [{ processes, roasts }, setMasters] = useState<{ processes: Process[]; roasts: Roast[] }>({
@@ -87,6 +90,31 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
       });
       const { body } = await response.json();
       console.log(body);
+    } catch (error) {
+      console.error(`Failed to add coffee bean: ${error}`);
+    }
+  };
+
+  const [isDeleteReady, setIsDeleteReady] = useState(false);
+  const handleDelete = async () => {
+    setIsDeleteReady(true);
+  };
+  const handleDeleteConfirm = async () => {
+    try {
+      const requestBody = {
+        coffeeBeanId: Number(coffeeBeanId),
+      } satisfies DeleteCoffeeBeanRequestType;
+
+      const response = await fetch('/api/coffee-bean', {
+        body: JSON.stringify(requestBody),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'DELETE',
+      });
+      const { body } = await response.json();
+      console.log(body);
+      router.replace('/coffee-bean');
     } catch (error) {
       console.error(`Failed to add coffee bean: ${error}`);
     }
@@ -226,9 +254,25 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
               }}
             />
           </div>
-          <button type="button" onClick={handleSubmit}>
+          <button className={'block'} type="button" onClick={handleSubmit}>
             送信
           </button>
+          <button className={'block'} type="button" onClick={handleDelete}>
+            削除
+          </button>
+          {isDeleteReady && (
+            <div>
+              <p>本当に削除しますか？</p>
+              <div className={'flex'}>
+                <button type="button" className={'bg-gray-500'} onClick={() => setIsDeleteReady(false)}>
+                  ☓ キャンセル
+                </button>
+                <button type="button" className={'bg-red-600'} onClick={handleDeleteConfirm}>
+                  ◯ 削除
+                </button>
+              </div>
+            </div>
+          )}
           <Link className={'block'} href={`/coffee-bean/${coffeeBeanId}`}>
             ◀ BACK
           </Link>

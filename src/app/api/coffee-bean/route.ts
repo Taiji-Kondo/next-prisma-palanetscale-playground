@@ -46,7 +46,7 @@ export type CreateCoffeeBeanRequestType = {
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    const data = (await request.json()) as CreateCoffeeBeanRequestType;
     const response = await prisma.coffeeBean.create({
       data: {
         name: data.name,
@@ -65,6 +65,34 @@ export async function POST(request: NextRequest) {
         response,
       },
       status: 201,
+    });
+  } catch (error) {
+    return Response.json({
+      body: {
+        error,
+      },
+      status: 500,
+    });
+  }
+}
+
+export type DeleteCoffeeBeanRequestType = {
+  coffeeBeanId: number;
+};
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const data = (await request.json()) as DeleteCoffeeBeanRequestType;
+    const response = await prisma.coffeeBean.delete({
+      where: {
+        coffeeBeanId: data.coffeeBeanId,
+      },
+    });
+    return Response.json({
+      body: {
+        response,
+      },
+      status: 200,
     });
   } catch (error) {
     return Response.json({
