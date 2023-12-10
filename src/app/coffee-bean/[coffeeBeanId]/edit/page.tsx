@@ -128,9 +128,7 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
   if (!isSetup) return <p>Loading...</p>;
 
   return (
-    <main className={'px-4'}>
-      <h1 className={'text-xl font-bold'}>Coffee Bean Edit</h1>
-
+    <>
       <section>
         <form>
           <div>
@@ -283,6 +281,6 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
           </Link>
         </form>
       </section>
-    </main>
+    </>
   );
 }

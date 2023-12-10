@@ -86,9 +86,7 @@ export default function CoffeeBeanAddPage() {
   };
 
   return (
-    <main className={'px-4'}>
-      <h1 className={'text-xl font-bold'}>Add Coffee Bean</h1>
-
+    <>
       <section>
         <form>
           <div>
@@ -224,6 +222,6 @@ export default function CoffeeBeanAddPage() {
       </section>
 
       <Link href={'/coffee-bean'}>◀ BACK</Link>
-    </main>
+    </>
   );
 }

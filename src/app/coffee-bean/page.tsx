@@ -9,9 +9,7 @@ export default async function CoffeeBeanPage() {
   const beans = await prisma.coffeeBean.findMany({ include: { process: true, roast: true }, where: { userId } });
 
   return (
-    <main className={'px-4'}>
-      <h1 className={'text-xl font-bold'}>Coffee Bean</h1>
-
+    <>
       <section>
         <table className={'w-full'}>
           <thead>
@@ -48,6 +46,6 @@ export default async function CoffeeBeanPage() {
       </section>
 
       <Link href={'/coffee-bean/add'}>ADD</Link>
-    </main>
+    </>
   );
 }

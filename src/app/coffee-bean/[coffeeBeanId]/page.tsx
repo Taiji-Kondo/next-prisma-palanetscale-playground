@@ -13,9 +13,7 @@ export default async function CoffeeBeanDetailPage({ params: { coffeeBeanId } }:
   });
 
   return (
-    <main className={'px-4'}>
-      <h1 className={'text-xl font-bold'}>Coffee Bean Detail</h1>
-
+    <>
       <section>
         <table className={'w-full'}>
           <thead>
@@ -59,6 +57,6 @@ export default async function CoffeeBeanDetailPage({ params: { coffeeBeanId } }:
       <Link className={'block'} href={'/coffee-bean'}>
         ◀ BACK
       </Link>
-    </main>
+    </>
   );
 }
