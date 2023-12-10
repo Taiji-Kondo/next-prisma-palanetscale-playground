@@ -1,5 +1,7 @@
 'use client';
 
+import { format } from 'date-fns';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { CreateCoffeeBeanRequestType } from '@/app/api/coffee-bean/route';
@@ -20,6 +22,7 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
   // TODO: get auth user
   const userId = 2;
 
+  const [isSetup, setIsSetup] = useState(false);
   const [{ processes, roasts }, setMasters] = useState<{ processes: Process[]; roasts: Roast[] }>({
     processes: [],
     roasts: [],
@@ -54,6 +57,7 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
         if (!processesBody || !roastsBody) return;
 
         setMasters({ processes: processesBody.processes, roasts: roastsBody.roasts });
+        setIsSetup(true);
       } catch (error) {
         console.error(`Failed to get master data: ${error}`);
       }
@@ -87,6 +91,8 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
       console.error(`Failed to add coffee bean: ${error}`);
     }
   };
+
+  if (!isSetup) return <p>Loading...</p>;
 
   return (
     <main className={'px-4'}>
@@ -213,7 +219,7 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
               type="date"
               id="purchaseDate"
               name="purchaseDate"
-              value={form.purchaseDate}
+              value={form.purchaseDate ? format(new Date(form.purchaseDate), 'yyyy-MM-dd') : undefined}
               onChange={(event) => {
                 const value = event.currentTarget.value;
                 handleChange({ key: 'purchaseDate', value });
@@ -223,6 +229,9 @@ export default function CoffeeBeanEditPage({ params: { coffeeBeanId } }: { param
           <button type="button" onClick={handleSubmit}>
             送信
           </button>
+          <Link className={'block'} href={`/coffee-bean/${coffeeBeanId}`}>
+            ◀ BACK
+          </Link>
         </form>
       </section>
     </main>
